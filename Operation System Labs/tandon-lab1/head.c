@@ -35,7 +35,6 @@ void head(int fd, int n)
 {
     int i, r, l=0;
 
-
     while((r = read(fd, buf, sizeof(buf))) > 0 && l < n)
     {
         for(i = 0; i < r && l < n; i++)
@@ -50,14 +49,14 @@ void head(int fd, int n)
 
 int main(int argc, char *argv[])
 {
-    int i, n = 10;
+    int i, n = 10, fd;
     char *c;
     short flag = 0;
-
+    short stop = 0;
     for(i = 1; i < argc; i++)
     {
         strcpy(buf, argv[i]);
-        if(buf[0]=='-')
+        if(stop == 0 && buf[0]=='-')
         {
             if(buf[1] == '-')
             {
@@ -65,13 +64,15 @@ int main(int argc, char *argv[])
                 c += 2;
                 if(strcmp(c, "help") == 0)
                     print_help();
-                else
+                else if(strcmp(c, "\0") == 0)
+		    stop = 1;
+		else
                     print_error(0, argv[i]);
             }
             else
             {
-                c = buf
-                c += 1
+                c = buf;
+                c += 1;
                 if(atoi(c) == 0)
                     print_error(1, c);
                 n = atoi(c);
@@ -96,3 +97,4 @@ int main(int argc, char *argv[])
     }
     exit();
 }
+
