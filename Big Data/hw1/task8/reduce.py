@@ -4,19 +4,21 @@ import sys
 make_dict = {}
 color_dict = {}
 
+current_key = None
+current_value = None
+number = 0
 for line in sys.stdin:
 	key, value = map(str.strip, line.split('\t',1))
-	if key == 'Make':
-		make_dict[value] = 1 if value not in make_dict else make_dict[value]+1
+	key = key[1:]
+	key, value = map(str.strip, key.split(',',1))
+	if current_value == value:
+		number += 1
 	else:
-		color_dict[value] = 1 if value not in color_dict else color_dict[value]+1
+		if current_value != None:
+			print("{0}\t{1}, {2}".format(current_key, current_value, number))
+		number = 1
+		current_value = value
+		current_key = key
 
-make_list = sorted(make_dict.items(), key = lambda item:item[0])
-
-for item in make_list:
-	print("Make\t{0}, {1}".format(item[0], item[1]))
-
-color_list = sorted(color_dict.items(), key = lambda item:item[0])
-
-for item in color_list:
-	print("Color\t{0}, {1}".format(item[0], item[1]))
+if current_value != None:
+	print("{0}\t{1}, {2}".format(current_key, current_value, number))

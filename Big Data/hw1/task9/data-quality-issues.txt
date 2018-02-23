@@ -1,0 +1,5 @@
+1. There are several violations in open_violations can't be find in parking_violations.
+
+2. The records with same `summons_number` in open_violations and parking_violations may have different plate_id. These may be typo.
+
+

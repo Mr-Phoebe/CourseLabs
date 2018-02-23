@@ -12,4 +12,4 @@ for line in lines:
 	else:
 		print('%s\t%d' % (a,0))
 
-	
+
