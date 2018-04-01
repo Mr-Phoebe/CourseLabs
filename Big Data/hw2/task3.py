@@ -24,3 +24,4 @@ res = res.map(lambda x: fmt(x[0], x[1][0], x[1][1]))
 res.saveAsTextFile(saveas)
 sc.stop()
 
+

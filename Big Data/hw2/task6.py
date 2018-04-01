@@ -24,3 +24,4 @@ res = sc.parallelize(res.take(20))
 res.saveAsTextFile(saveas)
 sc.stop()
 
+

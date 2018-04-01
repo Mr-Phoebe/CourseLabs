@@ -7,7 +7,7 @@ OV = '/user/ecc290/HW1data/open-violations-header.csv'
 
 spark = SparkSession.builder.appName("hw2").config("spark.some.config.option", "some-value").getOrCreate()
 
-pv = spark.read.format('csv').options(header='true', inferschema='true').load(sys.argv[1])
+pv = spark.read.format('csv').options(header='true', inferschema='true').load(PV)
 pv.createOrReplaceTempView("parking")
 
 res = spark.sql("SELECT violation_code, COUNT(*) AS cnt \

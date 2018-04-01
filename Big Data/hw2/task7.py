@@ -1,8 +1,10 @@
 import sys
+from operator import add
 from csv import reader
 from pyspark import SparkContext
 
 saveas = "task7.out"
+PV = '/user/ecc290/HW1data/parking-violations.csv'
 t_days = ['05','06','12','13','19','20','26','27']
 
 sc = SparkContext()

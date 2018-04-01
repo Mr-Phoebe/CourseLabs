@@ -3,7 +3,7 @@ from operator import add
 from csv import reader
 from pyspark import SparkContext
 
-saveas = "task1-sql.out"
+saveas = "task1.out"
 
 PV = '/user/ecc290/HW1data/parking-violations.csv'
 OV = '/user/ecc290/HW1data/open-violations.csv'

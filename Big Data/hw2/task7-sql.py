@@ -7,7 +7,7 @@ OV = '/user/ecc290/HW1data/open-violations-header.csv'
 
 spark = SparkSession.builder.appName("hw2").config("spark.some.config.option", "some-value").getOrCreate()
 
-pv = spark.read.format('csv').options(header='true', inferschema='true').load(sys.argv[1])
+pv = spark.read.format('csv').options(header='true', inferschema='true').load(PV)#sys.argv[1])
 pv.createOrReplaceTempView("parking")
 
 tmp = spark.sql("SELECT violation_code, dayofmonth(issue_date) AS day\
@@ -23,3 +23,4 @@ result = spark.sql("SELECT violation_code, \
                     GROUP BY violation_code")
 
 result.select(format_string('%s\t%.2f, %.2f',result.violation_code, result.weekend / 8.0, result.weekday / 23.0 )).write.save("task7-sql.out",format="text")
+
