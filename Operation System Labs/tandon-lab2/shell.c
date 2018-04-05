@@ -71,7 +71,7 @@ runcmd(struct cmd *cmd)
     // fprintf(stderr, "redir not implemented\n");
     // Your code here ...
     close(rcmd->fd);
-    if(open(rcmd->file, rcmd->mode) < 0){
+    if(open(rcmd->file, rcmd->mode, 0666) < 0){
       fprintf(stderr, "open %s failed\n", rcmd->file);
       exit(-1);
     }
