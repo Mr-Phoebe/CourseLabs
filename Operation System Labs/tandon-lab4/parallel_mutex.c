@@ -103,13 +103,13 @@ int main(int argc, char **argv) {
     for (i = 0; i < NUM_KEYS; i++)
         keys[i] = random();
 
-    //initialize mutexes
+    // Initialize locks
     for(i = 0; i < NUM_BUCKETS; i++){
     	pthread_mutex_init(&mutexTable[i], NULL);
     }
 
-    // Initiatize the lock
-    pthread_mutex_init(&lock, NULL);
+    // Initialize the lock
+    // pthread_mutex_init(&lock, NULL);
 
     threads = (pthread_t *) malloc(sizeof(pthread_t)*num_threads);
     if (!threads) {
@@ -121,15 +121,15 @@ int main(int argc, char **argv) {
     for (i = 0; i < num_threads; i++) {
         pthread_create(&threads[i], NULL, put_phase, (void *)i);
     }
-    
+
     // Barrier
     for (i = 0; i < num_threads; i++) {
         pthread_join(threads[i], NULL);
     }
     end = now();
-    
+
     printf("[main] Inserted %d keys in %f seconds\n", NUM_KEYS, end - start);
-    
+
     // Reset the thread array
     memset(threads, 0, sizeof(pthread_t)*num_threads);
 
@@ -155,26 +155,17 @@ int main(int argc, char **argv) {
 
 
 /*
-Part 2: 
+Part 2:
 I do see a change in timing.
-In some cases, mutex performs better than spin. 
-Because it's better to put threads to sleep and swap immediately rather than to 
-keep waiting until it gets released.  
-At another point, around say 100 threads, the overhead of swaping might cost more 
-time, which might explain why the time starts to go up again.
+Mutex performs better than spin. Because it's better to put threads
+to sleep and swap immediately rather than to keep waiting until it gets released.
+The only thing that makes Mutex slow is the overhead of swapping.
 
-Mutex:   1 Threads = 10.8073 sec; 2 Threads = 6.4022 sec; 8 Threads = 3.5965 sec; 20 Threads = 3.3657 sec; 100 Threads = 5.0989 sec
-Spinlock:1 Threads = 11.2287 sec; 2 Threads = 9.9378 sec; 8 Threads = 3.6722 sec; 20 Threads = 3.4111 sec; 100 Threads = 4.3071 sec
 
-Part 3: 
-Retrieving an item from the hash table does not require a lock. 
-I thought it would because the unmodified program shows keys lost 
-in the retrieval phase, but the truth appears to be that the insert 
-is failing due to race conditions. Further evidence that supports 
-this is that when I implemented the locks and mutexes, I only did so 
-for the insertion part of the program. The retrieval still runs in 
-parallel, and no keys are lost. I wonder if maybe that's because 
-everything is done in more of less one step for the retrieval 
-so no race conditions can occur.
-
+Part 3:
+Retrieving an item from the hash table does not require a lock.
+Just like the shared lock in Two Phases Lock in DBMS. The reading
+operation is mutually exclusive with writing operation. But in
+this case, the writing operation will not effect with reading
+operation. So there is no need to add lock for reading operation(retrieving an item).
 */
