@@ -31,3 +31,9 @@ The collection of Labs for my courses.
 
 ## OPERATION SYSTEM LABS 12/02/18
 <br>[Operation System Labs](https://github.com/Mr-Phoebe/CourseLabs/tree/master/Operation%20System%20Labs)</br>
+
+## NEURAL NETWORK
+<br>[Small Project](https://github.com/Mr-Phoebe/CourseLabs/tree/master/Neural%20Network)</br>
+
+## MACHINE LEARNING
+<br>[Homework Labs](https://github.com/Mr-Phoebe/CourseLabs/tree/master/Neural%20Network)</br>
